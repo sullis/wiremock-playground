@@ -10,6 +10,9 @@ public class FixedSizeInputStream extends InputStream {
   private final long size;
 
   public FixedSizeInputStream(char c, long size) {
+    if (size < 1) {
+      throw new IllegalArgumentException("size=" + size);
+    }
     this.c = c;
     this.size = size;
   }
