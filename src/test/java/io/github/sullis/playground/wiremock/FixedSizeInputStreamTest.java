@@ -13,7 +13,7 @@ public class FixedSizeInputStreamTest {
   void simple() throws Exception {
     final char c = 'a';
     final int size = 54321;
-    InputStreamSource source = StreamSourceSupport.forInputStream(new FixedSizeInputStream(c, size));
+    InputStreamSource source = StreamSourceSupport.forFixedSizeInputStream(c, size);
     String result = IOUtils.toString(source.getStream(), StandardCharsets.UTF_8);
     assertThat(result).isEqualTo(StringUtils.repeat(c, size));
   }

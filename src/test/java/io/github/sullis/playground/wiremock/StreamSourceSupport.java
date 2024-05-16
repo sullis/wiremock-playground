@@ -6,11 +6,11 @@ import java.io.InputStream;
 
 public class StreamSourceSupport {
 
-  public static InputStreamSource forInputStream(final InputStream input) {
+  public static InputStreamSource forFixedSizeInputStream(char c, long size) {
     return new InputStreamSource() {
       @Override
       public InputStream getStream() {
-        return input;
+        return new FixedSizeInputStream(c, size);
       }
     };
   }
