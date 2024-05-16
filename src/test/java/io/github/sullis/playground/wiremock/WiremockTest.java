@@ -1,10 +1,13 @@
 package io.github.sullis.playground.wiremock;
 
+import com.github.tomakehurst.wiremock.common.InputStreamSource;
+import com.github.tomakehurst.wiremock.common.StreamSources;
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -23,6 +26,18 @@ public class WiremockTest {
 
   @Test
   void helloWorld() throws Exception {
+    try (HttpClient httpclient = HttpClient.newHttpClient()) {
+      wiremock.stubFor(get("/").willReturn(ok()));
+      URI uri = URI.create(wiremock.url("/"));
+      HttpRequest request = HttpRequest.newBuilder().GET().uri(uri).build();
+      HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
+      assertThat(response.statusCode()).isEqualTo(200);
+    }
+  }
+
+  @Test
+  void inputStreamSourceForBytes() throws Exception {
+    InputStreamSource source = StreamSources.forBytes("foo".getBytes(StandardCharsets.UTF_8));
     try (HttpClient httpclient = HttpClient.newHttpClient()) {
       wiremock.stubFor(get("/").willReturn(ok()));
       URI uri = URI.create(wiremock.url("/"));
