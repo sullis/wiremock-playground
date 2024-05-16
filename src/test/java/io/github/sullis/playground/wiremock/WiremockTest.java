@@ -23,11 +23,12 @@ public class WiremockTest {
 
   @Test
   void helloWorld() throws Exception {
-    wiremock.stubFor(get("/").willReturn(ok()));
-    HttpClient httpclient = HttpClient.newHttpClient();
-    URI uri = URI.create(wiremock.url("/"));
-    HttpRequest request = HttpRequest.newBuilder().GET().uri(uri).build();
-    HttpResponse response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
-    assertThat(response.statusCode()).isEqualTo(200);
+    try (HttpClient httpclient = HttpClient.newHttpClient()) {
+      wiremock.stubFor(get("/").willReturn(ok()));
+      URI uri = URI.create(wiremock.url("/"));
+      HttpRequest request = HttpRequest.newBuilder().GET().uri(uri).build();
+      HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
+      assertThat(response.statusCode()).isEqualTo(200);
+    }
   }
 }
