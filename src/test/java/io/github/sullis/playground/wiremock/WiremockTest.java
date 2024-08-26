@@ -8,6 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -27,23 +28,25 @@ public class WiremockTest {
   @Test
   void helloWorld() throws Exception {
     try (HttpClient httpclient = HttpClient.newHttpClient()) {
-      wiremock.stubFor(get("/").willReturn(ok()));
+      final String body = UUID.randomUUID().toString();
+      wiremock.stubFor(get("/").willReturn(ok().withBody(body)));
       URI uri = URI.create(wiremock.url("/"));
       HttpRequest request = HttpRequest.newBuilder().GET().uri(uri).build();
       HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
       assertThat(response.statusCode()).isEqualTo(200);
+      assertThat(response.body()).isEqualTo(body);
     }
   }
 
   @Test
-  void inputStreamSourceForBytes() throws Exception {
-    InputStreamSource source = StreamSources.forBytes("foo".getBytes(StandardCharsets.UTF_8));
+  void testWithBodyFile() throws Exception {
     try (HttpClient httpclient = HttpClient.newHttpClient()) {
-      wiremock.stubFor(get("/").willReturn(ok()));
+      wiremock.stubFor(get("/").willReturn(ok().withBodyFile("foobar.txt")));
       URI uri = URI.create(wiremock.url("/"));
       HttpRequest request = HttpRequest.newBuilder().GET().uri(uri).build();
       HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
       assertThat(response.statusCode()).isEqualTo(200);
+      assertThat(response.body()).isEqualTo("Hello world.");
     }
   }
 }
