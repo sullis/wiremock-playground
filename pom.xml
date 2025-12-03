@@ -37,7 +37,7 @@
     <dependency>
       <groupId>org.wiremock</groupId>
       <artifactId>wiremock</artifactId>
-      <version>4.0.0-beta.19</version>
+      <version>4.0.0-beta.20</version>
       <scope>test</scope>
     </dependency>
     <dependency>
