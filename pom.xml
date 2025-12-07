@@ -43,7 +43,19 @@
     </dependency>
     <dependency>
       <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-jetty</artifactId>
+      <version>${wiremock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.wiremock</groupId>
       <artifactId>wiremock-junit5</artifactId>
+      <version>${wiremock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-httpclient-apache5</artifactId>
       <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
