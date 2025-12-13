@@ -28,7 +28,7 @@ public class WiremockTest {
   @Test
   void helloWorld() throws Exception {
     try (HttpClient httpclient = HttpClient.newHttpClient()) {
-      final String body = UUID.randomUUID().toString();
+      final String body = "Hello world " + UUID.randomUUID();
       wiremock.stubFor(get("/").willReturn(ok().withBody(body)));
       URI uri = URI.create(wiremock.url("/"));
       HttpRequest request = HttpRequest.newBuilder().GET().uri(uri).build();
@@ -39,7 +39,7 @@ public class WiremockTest {
   }
 
   @Test
-  void testWithBodyFile() throws Exception {
+  void responseWithBodyFile() throws Exception {
     try (HttpClient httpclient = HttpClient.newHttpClient()) {
       wiremock.stubFor(get("/").willReturn(ok().withBodyFile("foobar.txt")));
       URI uri = URI.create(wiremock.url("/"));
