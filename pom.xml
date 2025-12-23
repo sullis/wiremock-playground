@@ -16,7 +16,7 @@
   </licenses>
 
   <properties>
-    <wiremock.version>4.0.0-beta.23</wiremock.version>
+    <wiremock.version>4.0.0-beta.24</wiremock.version>
     <logback.version>1.5.23</logback.version>
     <slf4j.version>2.0.17</slf4j.version>
     <skip.tests>false</skip.tests>
