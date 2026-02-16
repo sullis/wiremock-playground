@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Comprehensive WireMock REST API test coverage.
  * Tests various HTTP methods, request/response features, and stubbing capabilities.
  */
-public class WiremockRestTest {
+public class WireMockRestTest {
   
   @RegisterExtension
   static WireMockExtension wiremock = WireMockExtension.newInstance()
@@ -357,12 +357,12 @@ public class WiremockRestTest {
   @Test
   void testUnauthorizedResponse() throws Exception {
     try (HttpClient httpclient = HttpClient.newHttpClient()) {
-      wiremock.stubFor(get("/secure")
+      wiremock.stubFor(get("/protected")
           .withHeader("Authorization", absent())
           .willReturn(unauthorized()
               .withBody("{\"error\":\"Unauthorized\"}")));
       
-      URI uri = URI.create(wiremock.url("/secure"));
+      URI uri = URI.create(wiremock.url("/protected"));
       HttpRequest request = HttpRequest.newBuilder()
           .GET()
           .uri(uri)
