@@ -107,6 +107,10 @@ void responseWithBodyFile() throws Exception {
 
 ## Related Resources
 
+### OpenRewrite recipe for wiremock
+
+https://github.com/openrewrite/rewrite-testing-frameworks/pull/1122
+
 ### gRPC and WireMock
 - [Mocking gRPC Microservices](https://www.infoq.com/articles/mocking-grpc-microservices/) - InfoQ article
 - [wiremock-grpc-extension](https://github.com/wiremock/wiremock-grpc-extension) - Official gRPC extension for WireMock
